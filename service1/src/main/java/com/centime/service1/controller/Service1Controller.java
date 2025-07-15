@@ -15,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Name Processor", description = "API to process and return full name")
 public class Service1Controller {
 
     @Autowired
@@ -27,12 +28,10 @@ public class Service1Controller {
     }
 
     @PostMapping("/call-services")
-    public ResponseEntity<String> callServices(@Valid @RequestBody NameRequest request, @RequestHeader(value = "traceId", required = false) String traceId) {
+    public ResponseEntity<String> callServices(@Valid @RequestBody NameRequest request) {
 
-        if(traceId == null || traceId.isEmpty()){
-            traceId = UUID.randomUUID().toString();
-        }
 
+        String traceId = UUID.randomUUID().toString();
         System.out.println("[Service1] traceId: " + traceId + " — Calling Service 2 (/hello)");
 
         System.out.println("Call is here");
